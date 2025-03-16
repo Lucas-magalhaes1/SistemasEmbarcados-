@@ -1,0 +1,75 @@
+is.gd/lista1comp
+
+** CIRCUITO **
+Leds ligados nas portas 13, 12 e 11.
+Botões ligados nas portas 2 e 3.
+Potênciometros ligados nas portas A0 e A1.
+
+EXEMPLO: https://ardudino.wordpress.com/wp-content/uploads/2015/12/trab36-parte2-botc3a3o-controla-led.jpg
+CIRCUITO TINKERCAD: https://www.tinkercad.com/things/20DfTexAXSq-circuito-padrao
+
+----------------------------
+ENTRADAS E SAÍDAS DIGITAIS
+-----------------------------
+
+1 - Faça um sistema com dois botões e três leds, 
+o primeiro deve aumentar a quantidade de leds acesos 
+e o segundo deve diminuir a quantidade de leds acesos. 
+
+
+2- (não precisa fazer) Faça um sistema com 2 leds e 2 botões.
+Ao pressionar qualquer dos botões, o LED 13 deve ligar.
+Ao pressionar os dois botões juntos, 
+os dois leds devem ligar.
+
+3- Ao pressionar: 
+- botão 2 os leds devem "correr" em um sentido.
+- botão 3 os leds devem "correr em sentido contrario.
+
+4- Faça um sistema com um led e três botões. Um led deve iniciar piscando com um intervalo de 1s. Esse intervalo pode ser alterado por dois botões, sendo um deles para aumentar o intervalo em 100ms e o outro para diminuir esse intervalo em 100ms. Ao pressionar o terceiro botão o intervalo deve ser reiniciado para 1s.
+
+---------------------------
+ENTRADAS ANALÓGICAS
+---------------------------
+
+5- Faça um sistema que leia o valor de uma porta analógica e ligue ou desligue um led conforme a 
+tensão lida, sendo menor que 2,5V desliga o led e maior ou igual a 2,5V ligue o led. 
+
+6- O objeivo deste exercício é criar um programa para Arduino que lê os valores de duas entradas 
+analógicas e exibe o resultado no monitor serial. 
+
+7- Faça um sistema com dois potenciômetros, em que cada um deles controle o brilho de um led 
+diferente. 
+
+8- Faça um sistema com um led que deve ligar toda a vez que um botão for pressionado. Esse led 
+deverá desligar quando a leitura de uma porta analógica seja menor que 10. 
+
+9- Faça um sistema em que um potenciômetro controle o brilho de um led utilizando um potenciômetro, 
+porém o brilho do led só deve ser atualizado quando um botão for pressionado.
+
+10- Faça um led que piscará com um intervalo correspondente a leitura de uma porta analógica. 
+
+11- Faça um sistema que leia o valor da porta analógica e quando um botão for pressionado o valor da 
+porta analógica deve ser mostrada uma única vez no monitor serial.
+
+12- Um led que deverá piscar quando um botão for pressionado, a quantidade de vezes conforme o 
+valor lido em uma porta analógica (0 a 1023). 
+
+13- Faça um sistema com dois leds, sendo que cada um deles representará qual de duas entradas 
+analógicas está maior.
+
+-----------------------
+SAÍDAS ANALÓGICAS
+-----------------------
+
+14- Faça um sistema onde um potenciômetro controla o brilho de um led. (lembre de usar as portas apropriadas)
+
+15- Faça um sistema onde um potenciômetro controla o brilho de um led. Porem a atualização do brilho do led deve ocorrer somente quando 1 botão for pressionado.
+
+16- O brilho de um led deve aumentar a cada pulso de um botão. Após o led atingir o brilho máximo, no próximo pulso
+o led deve apagar.
+
+17- Dois leds terão o brilho controlado por um único potenciômetro. Porem enquanto um led aumentará o seu brilho, 
+um segundo led deverá diminuir o brilho. (gangorra)(lembre de usar as portas apropriadas)  
+
+18- O funcionamento dos leds deve ser parecido com o do exercício acima, porem o controle do brilho se dara por dois botões.
