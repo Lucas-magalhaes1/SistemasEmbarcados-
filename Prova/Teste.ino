@@ -1,64 +1,80 @@
-// Definição dos pinos
-const int botao1 = 2;
-const int botao2 = 3;
+// Definição das portas analógicas para os potenciômetros
+const int entrada1 = A0;
+const int entrada2 = A1;
+
+// Definição das portas digitais para os botões
+const int botao1 = 2;   
+const int botao2 = 3;   
+
+// Definição das portas para os LEDs
 const int led1 = 13;
 const int led2 = 12;
-const int led3 = 11; // LED com controle de brilho (PWM)
-const int potenciometro1 = A0;
-const int potenciometro2 = A1;
+const int led3 = 11;
+
+// Variável para armazenar o último estado do botão 2
+bool ultimoEstadoBotao = LOW;
 
 void setup() {
-    pinMode(botao1, INPUT_PULLUP);
-    pinMode(botao2, INPUT_PULLUP);
-    pinMode(led1, OUTPUT);
-    pinMode(led2, OUTPUT);
-    pinMode(led3, OUTPUT);
-    Serial.begin(9600);
+    pinMode(botao1, INPUT);  // Configura botão 1 como entrada
+    pinMode(botao2, INPUT);  // Configura botão 2 como entrada
+    pinMode(led1, OUTPUT);   // Configura LED 1 como saída
+    pinMode(led2, OUTPUT);   // Configura LED 2 como saída
+    pinMode(led3, OUTPUT);   // Configura LED 3 como saída
+    Serial.begin(9600);      // Inicia a comunicação serial para debug
 }
 
 void loop() {
-    // Leitura dos botões
-    int estadoBotao1 = digitalRead(botao1);
-    int estadoBotao2 = digitalRead(botao2);
+    // Lendo os valores dos potenciômetros
+    int valor1 = analogRead(entrada1);
+    int valor2 = analogRead(entrada2);
 
-    // Controle dos LEDs com os botões
-    if (estadoBotao1 == LOW) {
-        digitalWrite(led1, HIGH);
+    // Lendo o estado dos botões (pressionado = HIGH, solto = LOW)
+    bool estadoBotao1 = digitalRead(botao1) == HIGH;
+    bool estadoBotao2 = digitalRead(botao2) == HIGH;
+
+    // Mapeia os valores lidos dos potenciômetros para controle PWM dos LEDs
+    int brilhoLed = map(valor1, 0, 1023, 0, 255); 
+    analogWrite(led1, brilhoLed);
+
+    int brilhoLed2 = map(valor2, 0, 1023, 0, 255); 
+    analogWrite(led2, brilhoLed2);
+
+    // Se o botão 1 for pressionado, acende o LED 3
+    if (estadoBotao1 == HIGH) {
+        digitalWrite(led3, HIGH);
     } else {
-        digitalWrite(led1, LOW);
+        digitalWrite(led3, LOW);
     }
 
-    if (estadoBotao2 == LOW) {
-        digitalWrite(led2, HIGH);
-    } else {
-        digitalWrite(led2, LOW);
+    // Se o botão 2 for pressionado e antes estava solto, faz o LED 3 piscar 4 vezes
+    if (estadoBotao2 == HIGH && ultimoEstadoBotao == LOW) {
+        digitalWrite(led3, HIGH);
+        delay(200);
+        digitalWrite(led3, LOW);
+        delay(200);
+        digitalWrite(led3, HIGH);
+        delay(200);
+        digitalWrite(led3, LOW);
+        delay(200);
     }
 
-    // Leitura dos potenciômetros
-    int valorPot1 = analogRead(potenciometro1);
-    int valorPot2 = analogRead(potenciometro2);
+    // Atualiza o estado anterior do botão 2 para detectar futuras mudanças
+    ultimoEstadoBotao = estadoBotao2;
 
-    // Converte os valores dos potenciômetros para PWM (0-255)
-    int brilhoLed3 = map(valorPot1, 0, 1023, 0, 255);
-    int reducaoBrilho = map(valorPot2, 0, 1023, 0, 255);
-
-    // Aplica o brilho ajustado no LED3
-    int brilhoFinal = brilhoLed3 - reducaoBrilho;
-    brilhoFinal = constrain(brilhoFinal, 0, 255); // Mantém dentro do intervalo 0-255
-
-    analogWrite(led3, brilhoFinal);
-
-    // Exibe no monitor serial
+    // Exibe informações no Serial Monitor para depuração
     Serial.print("Botao 1: ");
-    Serial.print(estadoBotao1 == LOW ? "Pressionado" : "Solto");
-    Serial.print(" | Botao 2: ");
-    Serial.print(estadoBotao2 == LOW ? "Pressionado" : "Solto");
-    Serial.print(" | Pot1: ");
-    Serial.print(valorPot1);
-    Serial.print(" | Pot2: ");
-    Serial.print(valorPot2);
-    Serial.print(" | Brilho LED3: ");
-    Serial.println(brilhoFinal);
-
-    delay(100); // Pequeno atraso para facilitar a leitura
+    Serial.print(estadoBotao1 == HIGH ? " Pressionado" : " Solto");
+    Serial.println(); 
+    
+    Serial.print("Botao 2: ");
+    Serial.print(estadoBotao2 == HIGH ? " Pressionado" : " Solto");
+    Serial.println(); 
+    
+    Serial.print("Valor Potenciometro1: ");
+    Serial.print(valor1);
+    Serial.println(); 
+    
+    Serial.print("Valor Potenciometro2: ");
+    Serial.print(valor2);
+    Serial.println();
 }
